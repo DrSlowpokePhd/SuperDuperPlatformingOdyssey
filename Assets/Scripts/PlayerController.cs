@@ -15,11 +15,7 @@ public class PlayerController : MonoBehaviour {
     Text playerLives;
     [SerializeField]
     Text deathText;
-    [SerializeField]
-    public Text E;
-    [SerializeField]
-    AudioSource EE;
-    AudioClip EEE;
+    
     [SerializeField]
     private Button returnToMainMenu;
     private Rigidbody2D player;
@@ -32,14 +28,14 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         player = gameObject.GetComponent<Rigidbody2D>();
-        EE = gameObject.GetComponent<AudioSource>();
         returnToMainMenu.gameObject.SetActive(false);
 	}
 	
-	// Update is called once per frame
+	// FixedUpdate is used for physics and things that need to be updated at a fixed interval
 	void FixedUpdate () {
-        float horizontal = Input.GetAxis("Horizontal");
-        player.velocity = new Vector2(horizontal * movementSpeed, player.velocity.y);    
+        float horizontal = Input.GetAxis("Horizontal");//variable for horizontal speed
+        player.velocity = new Vector2(horizontal * movementSpeed, player.velocity.y);
+        Debug.Log("Horizontal: " + horizontal);
 	}
 
     private void Update()
@@ -47,16 +43,13 @@ public class PlayerController : MonoBehaviour {
         //display lives and coin count as text
         playerScore.text = "Coins: " + coinCount;
         playerLives.text = "Lives: " + playerLivesCount;       
-        bool memes = true;
 
         if (playerLivesCount > 0)
         {
             returnToMainMenu.gameObject.SetActive(false);
         } 
-        if (coinCount == 16 && playerLivesCount == 3 && memes == true)
+        else if(playerLivesCount == 0)
         {
-            E.text = "E";
-            EE.PlayOneShot(EEE, 1);
             returnToMainMenu.gameObject.SetActive(true);
         }
     }

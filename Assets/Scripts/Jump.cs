@@ -11,11 +11,11 @@ public class Jump : MonoBehaviour {
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
     Rigidbody2D rb;
-    public int jumpNum = 0;
+    //public int jumpNum = 0;
     
-    Stopwatch jumpTime = new Stopwatch();
     
-    private void OnCollisionEnter2D(Collision2D ground)
+    /***    FEATURE DEPRECATED UNTIL FURTHER NOTICE    ***/
+   /* private void OnCollisionEnter2D(Collision2D ground)
     {
         while (jumpNum <= 5)
         {
@@ -23,7 +23,7 @@ public class Jump : MonoBehaviour {
         }
         
         
-    }
+    }*/
     
     // Use this for initialization
     void Start () {
@@ -33,16 +33,6 @@ public class Jump : MonoBehaviour {
     
 
     void FixedUpdate () {
-        //determines when to jump
-		if (Input.GetButtonDown("Jump") && jumpNum >= 1)
-        {
-            rb.velocity = Vector2.up * jumpVelocity;
-            jumpNum--;
-            
-        }
-
-        
-
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -50,6 +40,10 @@ public class Jump : MonoBehaviour {
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
+
+        //determines when to jump
+        if (Input.GetButtonDown("Jump"))
+            rb.velocity = Vector2.up * jumpVelocity;      
 	}
 
    

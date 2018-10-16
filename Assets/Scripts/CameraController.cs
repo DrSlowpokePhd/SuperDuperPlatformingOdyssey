@@ -29,11 +29,13 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	protected void Update () {
 
+        //variables keep track of x and y position of the player plus tracking distance
         float xTarget = trackingTarget.position.x + xOffset;
         float yTarget = trackingTarget.position.y + yOffset;
 
         float xNew = transform.position.x;
 
+        //checks to see if x axis variable is locked
         if (!isXLocked)
         {
             xNew = Mathf.Lerp(transform.position.x, xTarget, Time.deltaTime * followSpeed);
